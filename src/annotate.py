@@ -46,7 +46,7 @@ def mutate_ingress(spec, annotations):
         if not rule.get('http'):
             continue
         host = rule['host']
-        spec.tls.append({
+        spec['tls'].append({
             'hosts': [host],
             'secretName': f'{host}-tls'
         })
