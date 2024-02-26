@@ -8,6 +8,7 @@ app = Flask(__name__)
 @app.route('/mutate', methods=['POST'])
 def mutate():
     admission_review = request.get_json()
+    print(admission_review)
 
     try:
         resource = admission_review['request']['object']
@@ -30,6 +31,7 @@ def mutate():
             {"op": "replace", "path": "/metadata/annotations", "value": annotations}
         ]).encode()).decode()
     }
+    print(admission_review)
 
     return admission_review
 
