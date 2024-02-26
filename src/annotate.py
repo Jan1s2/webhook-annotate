@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route('/mutate', methods=['POST'])
 def mutate():
     admission_review = request.get_json()
-    print(admission_review)
 
     try:
         resource = admission_review['request']['object']
@@ -31,7 +30,6 @@ def mutate():
             {"op": "replace", "path": "/metadata/annotations", "value": annotations}
         ]).encode()).decode()
     }
-    print(admission_review)
 
     return admission_review
 
@@ -42,7 +40,7 @@ def mutate_ingress(spec, annotations):
     annotations['kubernetes.io/tls-acme'] = 'true'
     annotations['ingress.kubernetes.io/ssl-redirect'] = 'false'
     annotations['acme.cert-manager.io/http01-edit-in-place'] = 'true'
-    spec.tls = []
+    spec['tls'] = []
 
     for rule in rules:
         if not rule.get('http'):
